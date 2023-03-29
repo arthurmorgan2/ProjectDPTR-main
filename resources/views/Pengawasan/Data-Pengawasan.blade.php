@@ -1,0 +1,139 @@
+@extends('layouts.app')
+
+@section('content')
+    <!DOCTYPE html>
+    <!--
+                                                                        This is a starter template page. Use this page to start your new project from
+                                                                        scratch. This page gets rid of all links and provides the needed markup only.
+                                                                        -->
+    <html lang="en">
+
+    <head>
+        <!-- Select2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    </head>
+
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+
+
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <div class="content" style="margin: 9vh;">
+                    <div class="card card-info card-outline" style="width: 100%;">
+                        <div class="card-header" style="background-color: #c47b59">
+                            <h2 class="m-0">Arsip Pengawasan</h2>
+                        </div>
+
+                        <div class="row mt-4" style="margin-left: 5px;margin-right:2px">
+                            <div class="col">
+                                <div class="card-tools">
+                                    <a href="{{ route('Create-Pengawasan') }}" class="btn btn-dark">Tambah Data <i
+                                            class="fa fa-plus-square"></i></a>
+                                    Tahun
+                                    <select id="tahun">
+                                        <option value="">Pilih Tahun</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="display: flex; justify-content:end">
+                                    <select id="kabupaten">
+                                        <option value="">Pilih Kabupaten</option>
+                                    </select>
+                                    <select id='kapanewon'>
+                                        <option value=''>Pilih Kapanewon</option>
+                                    </select>
+                                    <select id='kelurahan'>
+                                        <option value=''>Pilih Kalurahan</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--main content paling utama-->
+                        <div class="card-body" style="font-size:12px;">
+                            <table id="myTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Kabupaten</th>
+                                        <th>Kapanewon</th>
+                                        <th>Kalurahan</th>
+                                        <th>Tahun Pengawasan</th>
+                                        <th>Nomor SK</th>
+                                        <th>Tanggal SK</th>
+                                        <th>Bentuk Pemanfaatan</th>
+                                        <th>Pengelola</th>
+                                        <th>Persil Klas</th>
+                                        <th>Nomor Sertifikat</th>
+                                        <th>Luas Pemanfaatan</th>
+                                        <th>Luas Keseluruhan</th>
+                                        <th>Jumlah Bidang</th>
+                                        <th>Lokasi</th>
+                                        <th>Koordinat</th>
+                                        <th>Jangka Waktu</th>
+                                        <th>Jenis Sk</th>
+                                        <th>Tindak Lanjut</th>
+                                        <th>Kesesuaian</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table">
+                                    @foreach ($dtpengawasan as $item)
+                                        <tr>
+                                            <td>{{ $item->kabupaten }}</td>
+                                            <td>{{ $item->kapanewon }}</td>
+                                            <td>{{ $item->kelurahan }}</td>
+                                            <td>{{ $item->tahun_pengawasan }}</td>
+                                            <td>{{ $item->nomor_sk }}</td>
+                                            <td>{{ $item->tanggal_sk }}</td>
+                                            <td>{{ $item->bentuk_pemanfaatan }}</td>
+                                            <td>{{ $item->pengelola }}</td>
+                                            <td>{{ $item->persil_klas }}</td>
+                                            <td>{{ $item->nomor_sertifikat }}</td>
+                                            <td>{{ $item->luas_pemanfaatan }}</td>
+                                            <td>{{ $item->luas_keseluruhan }}</td>
+                                            <td>{{ $item->jumlah_bidang }}</td>
+                                            <td>{{ $item->lokasi }}</td>
+                                            <td>{{ $item->koordinat }}</td>
+                                            <td>{{ $item->jktwaktu }}</td>
+                                            <td>{{ $item->jenis_sk }}</td>
+                                            <td>{{ $item->tdklanjut }}</td>
+                                            <td>{{ $item->kesesuaian }}</td>
+                                            <td>
+                                                <a href="{{ url('view-pengawasan', $item->id) }}"><i
+                                                        class="fas fa-eye"></i></a> |
+                                                <a href="{{ url('edit-pengawasan', $item->id) }}"><i
+                                                        class="fas fa-edit"></i></a> |
+                                                <a href="{{ url('delete-pengawasan', $item->id) }}"
+                                                    onclick="return confirm('Apakah Anda Yakin Menghapus Data?');"><i
+                                                        class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.content -->
+
+            </div>
+
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+    </body>
+
+    </html>
+@endsection
