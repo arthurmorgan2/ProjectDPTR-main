@@ -186,7 +186,7 @@ class DpemanfaatanController extends Controller
         }
 
         $dpemanfaatan->save();
-        return redirect()->route('tabel');
+        return redirect()->route('tabel')->with('flash_message_success', 'Data Pemanfaatan Berhasil Ditambahkan!');
     }
 
     // public function store(Request $request)
@@ -319,7 +319,7 @@ class DpemanfaatanController extends Controller
         }
 
         $dpemanfaatan->update();
-        return redirect()->route('tabel');
+        return redirect()->route('tabel')->with('flash_message_warning', 'Data Pemanfaatan Berhasil Diubah!');
     }
 
 
@@ -332,6 +332,6 @@ class DpemanfaatanController extends Controller
         Storage::delete($dpemanfaatan->file_SK_4);
         Storage::delete($dpemanfaatan->file_SK_5);
         dpemanfaatan::where(['id' => $id])->delete();
-        return redirect()->back();
+        return redirect()->back()->with('flash_message_danger', 'Data Pemanfaatan Berhasil Dihapus!');
     }
 }

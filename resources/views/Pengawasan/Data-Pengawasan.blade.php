@@ -1,31 +1,134 @@
 @extends('layouts.app')
 
 @section('content')
-    <!DOCTYPE html>
-    <!--
-                                                                        This is a starter template page. Use this page to start your new project from
-                                                                        scratch. This page gets rid of all links and provides the needed markup only.
-                                                                        -->
-    <html lang="en">
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container-fluid">
+                {{-- Datatables --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h3 class="card-title">Tabel Pengawasan</h3>
+                            </div>
+                            <div class="row mt-4" style="margin-left: 5px;margin-right:2px">
 
-    <head>
-        <!-- Select2 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+                                <div class="col">
+                                    <div class="card-tools">
+                                        <a href="{{ route('Create-Pengawasan') }}" class="btn btn-dark">Tambah Data <i
+                                                class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div style="display: flex; justify-content:end">
+                                        <select id="tahun">
+                                            <option value="">Pilih Tahun Akhir</option>
+                                        </select>
+                                        <select id="kabupaten">
+                                            <option value="">Pilih Kabupaten</option>
+                                        </select>
+                                        <select id='kapanewon'>
+                                            <option value=''>Pilih Kecamatan</option>
+                                        </select>
+                                        <select id='kelurahan'>
+                                            <option value=''>Pilih Kalurahan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            @if (session('flash_message_success'))
+                                <div class="alert alert-success">
+                                    {{ session('flash_message_success') }}
+                                </div>
+                            @endif
+                            @if (session('flash_message_warning'))
+                                <div class="alert alert-warning">
+                                    {{ session('flash_message_warning') }}
+                                </div>
+                            @endif
+                            @if (session('flash_message_danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('flash_message_danger') }}
+                                </div>
+                            @endif
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Kabupaten</th>
+                                            <th>Kapanewon</th>
+                                            <th>Kalurahan</th>
+                                            <th>Tahun Pengawasan</th>
+                                            <th>Nomor SK</th>
+                                            <th class="d-none">Tanggal SK</th>
+                                            <th>Bentuk Pemanfaatan</th>
+                                            <th class="d-none">Pengelola</th>
+                                            <th>Persil Klas</th>
+                                            <th class="d-none">Nomor Sertifikat</th>
+                                            <th class="d-none">Luas Pemanfaatan</th>
+                                            <th class="d-none">Luas Keseluruhan</th>
+                                            <th class="d-none">Jumlah Bidang</th>
+                                            <th class="d-none">Lokasi</th>
+                                            <th class="d-none">Koordinat</th>
+                                            <th class="d-none">Jangka Waktu</th>
+                                            <th>Jenis Sk</th>
+                                            <th>Tindak Lanjut</th>
+                                            <th>Kesesuaian</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dtpengawasan as $item)
+                                            <tr>
+                                                <td>{{ $item->kabupaten }}</td>
+                                                <td>{{ $item->kapanewon }}</td>
+                                                <td>{{ $item->kelurahan }}</td>
+                                                <td>{{ $item->tahun_pengawasan }}</td>
+                                                <td>{{ $item->nomor_sk }}</td>
+                                                <td class="d-none">{{ $item->tanggal_sk }}</td>
+                                                <td>{{ $item->bentuk_pemanfaatan }}</td>
+                                                <td class="d-none">{{ $item->pengelola }}</td>
+                                                <td>{{ $item->persil_klas }}</td>
+                                                <td class="d-none">{{ $item->nomor_sertifikat }}</td>
+                                                <td class="d-none">{{ $item->luas_pemanfaatan }}</td>
+                                                <td class="d-none">{{ $item->luas_keseluruhan }}</td>
+                                                <td class="d-none">{{ $item->jumlah_bidang }}</td>
+                                                <td class="d-none">{{ $item->lokasi }}</td>
+                                                <td class="d-none">{{ $item->koordinat }}</td>
+                                                <td class="d-none">{{ $item->jktwaktu }}</td>
+                                                <td>{{ $item->jenis_sk }}</td>
+                                                <td>{{ $item->tdklanjut }}</td>
+                                                <td>{{ $item->kesesuaian }}</td>
+                                                <td>
+                                                    <a href="{{ url('view-pengawasan', $item->id) }}"><i
+                                                            class="fas fa-eye"></i></a> |
+                                                    <a href="{{ url('edit-pengawasan', $item->id) }}"><i
+                                                            class="fas fa-edit"></i></a> |
+                                                    <a href="{{ url('delete-pengawasan', $item->id) }}"
+                                                        onclick="return confirm('Apakah Anda Yakin Menghapus Data?');"><i
+                                                            class="fas fa-trash-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-        <!-- Select2 JS -->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    </head>
-
-    <body class="hold-transition sidebar-mini">
-        <div class="wrapper">
-
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('layouts.select')
+@endsection
 
 
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+{{-- <div class="content-wrapper">
                 <div class="content" style="margin: 9vh;">
                     <div class="card card-info card-outline" style="width: 100%;">
                         <div class="card-header" style="background-color: #c47b59">
@@ -56,10 +159,10 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <!--main content paling utama-->
-                        <div class="card-body" style="font-size:12px;">
+<!--main content paling utama-->
+{{-- <div class="card-body" style="font-size:12px;">
                             <table id="myTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
@@ -68,17 +171,17 @@
                                         <th>Kalurahan</th>
                                         <th>Tahun Pengawasan</th>
                                         <th>Nomor SK</th>
-                                        <th>Tanggal SK</th>
+                                        <th class="d-none">Tanggal SK</th>
                                         <th>Bentuk Pemanfaatan</th>
-                                        <th>Pengelola</th>
+                                        <th class="d-none">Pengelola</th>
                                         <th>Persil Klas</th>
-                                        <th>Nomor Sertifikat</th>
-                                        <th>Luas Pemanfaatan</th>
-                                        <th>Luas Keseluruhan</th>
-                                        <th>Jumlah Bidang</th>
-                                        <th>Lokasi</th>
-                                        <th>Koordinat</th>
-                                        <th>Jangka Waktu</th>
+                                        <th class="d-none">Nomor Sertifikat</th>
+                                        <th class="d-none">Luas Pemanfaatan</th>
+                                        <th class="d-none">Luas Keseluruhan</th>
+                                        <th class="d-none">Jumlah Bidang</th>
+                                        <th class="d-none">Lokasi</th>
+                                        <th class="d-none">Koordinat</th>
+                                        <th class="d-none">Jangka Waktu</th>
                                         <th>Jenis Sk</th>
                                         <th>Tindak Lanjut</th>
                                         <th>Kesesuaian</th>
@@ -94,17 +197,17 @@
                                             <td>{{ $item->kelurahan }}</td>
                                             <td>{{ $item->tahun_pengawasan }}</td>
                                             <td>{{ $item->nomor_sk }}</td>
-                                            <td>{{ $item->tanggal_sk }}</td>
+                                            <td class="d-none">{{ $item->tanggal_sk }}</td>
                                             <td>{{ $item->bentuk_pemanfaatan }}</td>
-                                            <td>{{ $item->pengelola }}</td>
+                                            <td class="d-none">{{ $item->pengelola }}</td>
                                             <td>{{ $item->persil_klas }}</td>
-                                            <td>{{ $item->nomor_sertifikat }}</td>
-                                            <td>{{ $item->luas_pemanfaatan }}</td>
-                                            <td>{{ $item->luas_keseluruhan }}</td>
-                                            <td>{{ $item->jumlah_bidang }}</td>
-                                            <td>{{ $item->lokasi }}</td>
-                                            <td>{{ $item->koordinat }}</td>
-                                            <td>{{ $item->jktwaktu }}</td>
+                                            <td class="d-none">{{ $item->nomor_sertifikat }}</td>
+                                            <td class="d-none">{{ $item->luas_pemanfaatan }}</td>
+                                            <td class="d-none">{{ $item->luas_keseluruhan }}</td>
+                                            <td class="d-none">{{ $item->jumlah_bidang }}</td>
+                                            <td class="d-none">{{ $item->lokasi }}</td>
+                                            <td class="d-none">{{ $item->koordinat }}</td>
+                                            <td class="d-none">{{ $item->jktwaktu }}</td>
                                             <td>{{ $item->jenis_sk }}</td>
                                             <td>{{ $item->tdklanjut }}</td>
                                             <td>{{ $item->kesesuaian }}</td>
@@ -124,16 +227,11 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <!-- /.content -->
+                </div> --}}
+<!-- /.content -->
 
-            </div>
+{{-- </div> --}}
 
-            <!-- /.content-wrapper -->
-
-            <!-- Main Footer -->
-            <footer class="main-footer">
-    </body>
-
-    </html>
-@endsection
+<!-- /.content-wrapper -->
+<!-- jQuery -->
+<!-- Main Footer -->

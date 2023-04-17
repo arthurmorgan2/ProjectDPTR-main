@@ -16,14 +16,23 @@
 </script> --}}
 <script>
     $(document).ready(function() {
-    var table = $('#myTable').DataTable( {
-        lengthChange: true,
-        buttons: [ 'copy', 'excel', 'print', 'colvis' ]
-    } );
+        var table = $('#myTable').DataTable({
+            lengthChange: true,
+            buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                    },
+                },
+                {
+                    extend: 'colvis',
+                },
+            ]
+        });
 
-    table.buttons().container()
-        .appendTo( '#myTable_wrapper .col-md-6:eq(0)' );
-} );
+        table.buttons().container()
+            .appendTo('#myTable_wrapper .col-md-6:eq(0)');
+    });
 </script>
 <!-- jQuery -->
 {{-- <script src="{{ asset('assets/plugins/jquery/jquery.min.js')}}"></script> --}}

@@ -15,25 +15,25 @@ class CreatePengawasan extends Migration
     {
         Schema::create('pengawasan', function (Blueprint $table) {
             $table->id();
-            $table->string ('kabupaten');
-            $table->string ('kapanewon');
-            $table->string ('kelurahan');
-            $table->string ('tahun_pengawasan');
-            $table->string ('nomor_sk');
-            $table->date ('tanggal_sk');
-            $table->string ('bentuk_pemanfaatan');
-            $table->string ('pengelola');
-            $table->string ('persil_klas');
-            $table->string ('nomor_sertifikat');
-            $table->string ('luas_pemanfaatan');
-            $table->string ('luas_keseluruhan');
-            $table->string ('jumlah_bidang');
-            $table->string ('lokasi');
-            $table->string ('koordinat');
-            $table->string ('jktwaktu');
-            $table->string ('jenis_sk');
-            $table->string ('tdklanjut');
-            $table->string ('kesesuaian');
+            $table->string('kabupaten');
+            $table->string('kapanewon');
+            $table->string('kelurahan');
+            $table->string('tahun_pengawasan');
+            $table->string('nomor_sk');
+            $table->date('tanggal_sk');
+            $table->string('bentuk_pemanfaatan');
+            $table->string('pengelola');
+            $table->string('persil_klas');
+            $table->string('nomor_sertifikat');
+            $table->string('luas_pemanfaatan');
+            $table->string('luas_keseluruhan');
+            $table->string('jumlah_bidang');
+            $table->string('lokasi');
+            $table->string('koordinat');
+            $table->string('jktwaktu');
+            $table->string('jenis_sk');
+            $table->string('tdklanjut');
+            $table->string('kesesuaian');
             $table->timestamps();
         });
     }
@@ -48,6 +48,3 @@ class CreatePengawasan extends Migration
         Schema::dropIfExists('pengawasan');
     }
 }
-    
-
-    

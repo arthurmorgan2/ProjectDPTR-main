@@ -38,7 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
     Route::match(['get', 'post'], 'actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 
-    Route::group(['middleware' => ['guest']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         //Home
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::match(['get', 'post'], 'actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
@@ -82,7 +82,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/simpan-Pengawasan', [PengawasanController::class, 'store'])->name('simpan-Pengawasan');
         Route::get('/edit-pengawasan/{id}', [PengawasanController::class, 'edit'])->name('edit-pengawasan');
         Route::get('/view-pengawasan/{id}', [PengawasanController::class, 'view'])->name('view-pengawasan');
-        Route::post('/update-pengawasan/{id}', [PengawasanController::class, 'update'])->name('update-pengawasan');
+        Route::put('/update-pengawasan/{id}', [PengawasanController::class, 'update'])->name('update-pengawasan');
         Route::get('/delete-pengawasan/{id}', [PengawasanController::class, 'destroy'])->name('delete-pengawasan');
 
         Route::get('/Data-Pengawasan', [PengawasanController::class, 'index'])->name('Data-Pengawasan');
@@ -93,8 +93,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/form_izin', [AdministrasiController::class, 'create'])->name('form_izin');
     Route::post('/simpan_administrasi', [AdministrasiController::class, 'store'])->name('simpan_administrasi');
     Route::get('edit/{id}', [AdministrasiController::class, 'edit'])->name('edit');
-    Route::post('/updateadministrasi', [AdministrasiController::class, 'update'])->name('updateadministrasi');
-    Route::delete('/hapus/{id}', [AdministrasiController::class, 'destroy'])->name('hapus');
+    Route::put('/updateadministrasi/{id}', [AdministrasiController::class, 'update'])->name('updateadministrasi');
+    Route::get('/hapus/{id}', [AdministrasiController::class, 'delete'])->name('delete');
 
     // Auth::routes();
 

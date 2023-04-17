@@ -1,405 +1,338 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="content-fluid">
+                {{-- Datatables --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h3 class="card-title">Tabel Pemanfaatan</h3>
+                            </div>
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <div class="row mt-4" style="margin-left: 5px;margin-right:2px">
 
-    <!-- Select2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    </head>
-
-    <body class="hold-transition sidebar-mini">
-        <div class="wrapper">
-
-            <!-- Navbar -->
-            <!-- /.navbar -->
-
-            <!-- Main Sidebar Container -->
-
-
-
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-
-                            </div><!-- /.col -->
-                            {{-- <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-            </ol>
-          </div><!-- /.col --> --}}
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
-                <!-- Main content -->
-                <div class="content" style="margin:3vh">
-                    <div class="card card-info card-outline" style="width: 100%;">
-                        <div class="card-header" style="background-color: #c47b59">
-                            <h2 class="m-0">Arsip Pemanfaatan</h2>
-                        </div>
-
-                        <div class="row mt-4" style="margin-left: 5px;margin-right:2px">
-                            <div class="col">
-                                <div class="card-tools">
-                                    <a href="{{ route('form-dpemanfaatan') }}" class="btn btn-dark">Tambah Data <i
-                                            class="fa fa-plus-square"></i></a>
+                                <div class="col">
+                                    <div class="card-tools">
+                                        <a href="{{ route('form-dpemanfaatan') }}" class="btn btn-dark">Tambah Data <i
+                                                class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div style="display: flex; justify-content:end">
+                                        <select id="tahun">
+                                            <option value="">Pilih Tahun Akhir</option>
+                                        </select>
+                                        <select id="kabupaten">
+                                            <option value="">Pilih Kabupaten</option>
+                                        </select>
+                                        <select id='kapanewon'>
+                                            <option value=''>Pilih Kecamatan</option>
+                                        </select>
+                                        <select id='kelurahan'>
+                                            <option value=''>Pilih Kalurahan</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div style="display: flex; justify-content:end">
-                                    <select id="tahun">
-                                        <option value="">Pilih Tahun Akhir</option>
-                                    </select>
-                                    <select id="kabupaten">
-                                        <option value="">Pilih Kabupaten</option>
-                                    </select>
-                                    <select id='kapanewon'>
-                                        <option value=''>Pilih Kecamatan</option>
-                                    </select>
-                                    <select id='kelurahan'>
-                                        <option value=''>Pilih Kalurahan</option>
-                                    </select>
+                            <br>
+                            @if (session('flash_message_success'))
+                                <div class="alert alert-success">
+                                    {{ session('flash_message_success') }}
                                 </div>
-                            </div>
-                        </div>
-                        <!--main content paling utama-->
-                        <div class="card-body" style="font-size:12px;">
-                            <table id="myTable" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>Kode Perizinan</th>
-                                        <th>Kabupaten</th>
-                                        <th>Kapanewon</th>
-                                        <th>Kalurahan</th>
-                                        <th>Desa</th>
-                                        <th>Luas</th>
-                                        <th>Uraian</th>
-                                        <th>Sertifikat</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tahun Akhir</th>
-                                        <th>File SK Preview</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id="table">
-                                    @foreach ($dtpemanfaatan as $item)
+                            @endif
+                            @if (session('flash_message_warning'))
+                                <div class="alert alert-warning">
+                                    {{ session('flash_message_warning') }}
+                                </div>
+                            @endif
+                            @if (session('flash_message_danger'))
+                                <div class="alert alert-danger">
+                                    {{ session('flash_message_danger') }}
+                                </div>
+                            @endif
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example2" class="table table-bordered table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $item->kode_perizinan }}</td>
-                                            <td>{{ $item->kabupaten }}</td>
-                                            <td>{{ $item->kapanewon }}</td>
-                                            <td>{{ $item->kelurahan }}</td>
-                                            <td>{{ $item->desa }}</td>
-                                            <td>{{ $item->persil }}</td>
-                                            <td>{{ $item->luas }}</td>
-                                            <td>{{ $item->uraian }}</td>
-                                            <td>{{ $item->tanggal_mulai }}</td>
-                                            <td>{{ $item->tanggal_akhir }}</td>
-                                            <td><img src="{{ asset('uploads/file_SK/' . $item->file_SK) }}" width="100"
-                                                    alt="">
-                                            </td>
-                                            <td>
-                                                <a href="{{ url('edit-pemanfaatan/' . $item->id) }}"><i
-                                                        class="fas fa-edit"></i></a> |
-                                                <a href="{{ url('hapus-pemanfaatan/' . $item->id) }}"
-                                                    onclick="return confirm('Apakah Anda Yakin Menghapus Data?');"><i
-                                                        class="fas fa-trash-alt bg-dancer"></i></a>
-                                            </td>
+                                            <th>Kode Perizinan</th>
+                                            <th>Kabupaten</th>
+                                            <th>Kapanewon</th>
+                                            <th>Kalurahan</th>
+                                            <th>Desa</th>
+                                            <th>Luas</th>
+                                            <th>Uraian</th>
+                                            <th>Sertifikat</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tahun Akhir</th>
+                                            <th>File SK Preview</th>
+                                            <th>Aksi</th>
                                         </tr>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dtpemanfaatan as $item)
+                                            <tr>
+                                                <td>{{ $item->kode_perizinan }}</td>
+                                                <td>{{ $item->kabupaten }}</td>
+                                                <td>{{ $item->kapanewon }}</td>
+                                                <td>{{ $item->kelurahan }}</td>
+                                                <td>{{ $item->desa }}</td>
+                                                <td>{{ $item->persil }}</td>
+                                                <td>{{ $item->luas }}</td>
+                                                <td>{{ $item->uraian }}</td>
+                                                <td>{{ $item->tanggal_mulai }}</td>
+                                                <td>{{ $item->tanggal_akhir }}</td>
+                                                <td>
+                                                    {{-- @if ($item->file_SK != null)
+                                                        <a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File 1</a>
+                                                        <br>
+                                                    @elseif ($item->file_SK_2 != null)
+                                                        <a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
+                                                            2</a>
+                                                        <br>
+                                                    @elseif ($item->file_SK_3 != null)
+                                                        <a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
+                                                            3</a>
+                                                        <br>
+                                                    @elseif ($item->file_SK_4 != null)
+                                                        <a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
+                                                            4</a>
+                                                    @elseif ($item->file_SK_4 != null)
+                                                        <a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
+                                                            5</a>
+                                                    @else
+                                                        <a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File 1</a>
+                                                        <br>
+                                                        <a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
+                                                            2</a>
+                                                        <br>
+                                                        <a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
+                                                            3</a>
+                                                        <br>
+                                                        <a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
+                                                            4</a>
+                                                        <br>
+                                                        <a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
+                                                            5</a>
+                                                        <br>
+                                                    @endif --}}
+                                                    <a href="#" data-toggle="modal"
+                                                        data-target="#viewFiles-{{ $item->id }}"
+                                                        class="btn btn-warning btn-xs"><i class="bx bx-edit"></i>View
+                                                        Files</a>
+
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url('edit-pemanfaatan/' . $item->id) }}"><i
+                                                            class="fas fa-edit"></i></a> |
+                                                    {{-- <a href="{{ url('hapus-pemanfaatan/' . $item->id) }}"
+                                                    data-id="{{ $item->id }}"><i
+                                                        class="fas fa-trash-alt bg-dancer"></i></a> --}}
+                                                    <a href="{{ url('hapus-pemanfaatan/' . $item->id) }}"
+                                                        data-id="{{ $item->id }}"
+                                                        onclick="return confirm('Apakah Anda Yakin Menghapus Data?');"><i
+                                                            class="fas fa-trash-alt bg-dancer"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
-                <!-- /.content -->
             </div>
-
-            <!-- /.content-wrapper -->
-
-
-            <!-- Main Footer -->
-            <footer class="main-footer">
-                <!-- jQuery -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-                <!-- Select2 JS -->
-                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-                {{-- @include('tamplate.footer') --}}
-            </footer>
         </div>
-        <!-- ./wrapper -->
+    </div>
+    <!-- Modal -->
+    @foreach ($dtpemanfaatan as $item)
+        <div class="modal fade" id="viewFiles-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
 
-        <!-- REQUIRED SCRIPTS -->
+                        <div class="row">
+                            <div class="col-md-8 ms-auto"><a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File
+                                    1</a>
+                                <br>
+                                <img src="{{ URL::asset('uploads/file_SK/' . $item->file_SK) }}" width="200">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
+                                    2</a>
+                                <br>
+                                <img src="{{ URL::asset('uploads/file_SK_2/' . $item->file_SK_2) }}" width="200"
+                                    alt="File Kosong">
+                            </div>
+                            <div class="col-md-3"><a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
+                                    3</a>
+                                <br>
+                                <img src="{{ URL::asset('uploads/file_SK_3/' . $item->file_SK_3) }}" width="200"
+                                    alt="File Kosong">
+                            </div>
+                            <div class="col-md-3"><a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
+                                    4</a>
+                                <br>
+                                <img src="{{ URL::asset('uploads/file_SK_4/' . $item->file_SK_4) }}" width="200"
+                                    alt="File Kosong">
+                            </div>
+                            <div class="col-md-3"><a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
+                                    5</a>
+                                <br>
+                                <img src="{{ URL::asset('uploads/file_SK_5/' . $item->file_SK_5) }}" width="200"
+                                    alt="File Kosong">
+                            </div>
+                        </div>
 
-        <!-- jQuery -->
-        @include('tamplate.script')
-        <script>
-            // fetch omset, keuntungan, omset, dan total penjualan
-            $(document).ready(function() {
-                let kabupaten = $("#kabupaten");
-                let kapanewon = $('#kapanewon')
-                let kelurahan = $('#kelurahan')
-                let tahun = $('#tahun')
-                tahun.select2();
-                kelurahan.select2();
-                kapanewon.select2();
-                kabupaten.select2();
 
-                tahun.on('select2:select', e => {
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.search') }}",
-                        type: "GET",
-                        data: {
-                            kabupaten: $('#kabupaten').val(),
-                            kapanewon: $("#kapanewon").val(),
-                            kelurahan: $("#kelurahan").val(),
-                            tahun: e.target.value
-                        },
-                        success: function(data) {
-                            $('#table').empty()
-                            data.forEach(item => {
-                                $('#table').append(`
-                <tr>
-                  <td>${item.id}</td>
-                  <td>${item.kode_perizinan}</td>
-                  <td>${item.kabupaten }</td>
-                  <td>${item.kapanewon }</td>
-                  <td>${item.kelurahan }</td>
-                  <td>${item.desa }</td>
-                  <td>${item.persil}</td>
-                  <td>${item.luas}</td>
-                  <td>${item.uraian}</td>
-                  <td>${item.tanggal_mulai}</td>
-                  <td>${item.tanggal_akhir}</td>
-                  <td>${item.file_sk}</td>
-                  <td>
-                              <a href="edit-pemanfaatan/${item.id}"><i class="fas fa-edit"></i></a> |
-                              <a href="hapus-pemanfaatan/${item.id}"  onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" ><i class="fas fa-trash-alt bg-dancer"></i></a>
-                              @csrf
-                            </td>
-                </tr>`)
-                            })
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    {{-- <div class="content-wrapper">
+        <div class="content" style="margin:3vh">
+            <div class="card card-info card-outline" style="width: 100%;">
+                <div class="card-header">
+                    <h2 class="m-0">Arsip Pemanfaatan</h2>
+                </div>
 
-                        },
-                    })
-                })
+                @if (session('flash_message_success'))
+                    <div class="alert alert-success">
+                        {{ session('flash_message_success') }}
+                    </div>
+                @endif
+                @if (session('flash_message_warning'))
+                    <div class="alert alert-warning">
+                        {{ session('flash_message_warning') }}
+                    </div>
+                @endif
 
-                kabupaten.on('select2:select', (e) => {
+                <div class="row mt-4" style="margin-left: 5px;margin-right:2px">
+                    <div class="col">
+                        <div class="card-tools">
+                            <a href="{{ route('form-dpemanfaatan') }}" class="btn btn-dark">Tambah Data <i
+                                    class="fa fa-plus-square"></i></a>
+                        </div>
+                    </div> --}}
+    {{-- <div class="col">
+                        <div style="display: flex; justify-content:end">
+                            <select id="tahun">
+                                <option value="">Pilih Tahun Akhir</option>
+                            </select>
+                            <select id="kabupaten">
+                                <option value="">Pilih Kabupaten</option>
+                            </select>
+                            <select id='kapanewon'>
+                                <option value=''>Pilih Kecamatan</option>
+                            </select>
+                            <select id='kelurahan'>
+                                <option value=''>Pilih Kalurahan</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> --}}
+    {{-- <div class="card-body" style="font-size:12px;">
+                    <table id="myTable" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Kode Perizinan</th>
+                                <th>Kabupaten</th>
+                                <th>Kapanewon</th>
+                                <th>Kalurahan</th>
+                                <th>Desa</th>
+                                <th>Luas</th>
+                                <th>Uraian</th>
+                                <th>Sertifikat</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tahun Akhir</th>
+                                <th>File SK Preview</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
 
-                    // fetch selected kabupaten
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.search') }}",
-                        type: "GET",
-                        data: {
-                            kabupaten: e.target.value,
-                            tahun: $("#tahun").val()
-                        },
-                        success: function(data) {
-                            $('#table').empty()
-                            data.forEach(item => {
-                                $('#table').append(`
-                <tr>
-                  <td>${item.id}</td>
-                  <td>${item.kode_perizinan}</td>
-                  <td>${item.kabupaten }</td>
-                  <td>${item.kapanewon }</td>
-                  <td>${item.kelurahan }</td>
-                  <td>${item.desa }</td>
-                  <td>${item.persil}</td>
-                  <td>${item.luas}</td>
-                  <td>${item.uraian}</td>
-                  <td>${item.tanggal_mulai}</td>
-                  <td>${item.tanggal_akhir}</td>
-                  <td>${item.file_sk}</td>
-                  <td>
-                              <a href="edit-pemanfaatan/${item.id}"><i class="fas fa-edit"></i></a> |
-                              <a href="hapus-pemanfaatan/${item.id}"  onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" ><i class="fas fa-trash-alt bg-dancer"></i></a>
-                              @csrf
-                            </td>
-                </tr>`)
-                            })
-
-                        },
-                    })
-
-                    // fetch list kapanewon
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.kapanewon') }}",
-                        type: "GET",
-                        data: {
-                            kabupaten: e.target.value,
-                            tahun: $("#tahun").val()
-                        },
-                        success: function(data) {
-                            // console.log("memanggil kecamatan")
-                            // console.log("e", e.target.value)
-                            // console.log('data', data)
-                            data.map(it => {
-                                var newOption = new Option(it.kapanewon, it.kapanewon,
-                                    false, false);
-                                $('#kapanewon').append(newOption);
-                            })
-
-                        },
-                    })
-                })
-
-                kapanewon.on('select2:select', (e) => {
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.kelurahan') }}",
-                        type: "GET",
-                        data: {
-                            kapanewon: e.target.value,
-                            kabupaten: $("#kabupaten").val(),
-                            tahun: $("#tahun").val()
-                        },
-                        success: function(data) {
-                            console.log("dataaa", data)
-                            data.map(it => {
-                                var newOption = new Option(it.kelurahan, it.kelurahan,
-                                    false, false);
-                                $('#kelurahan').append(newOption);
-                            })
-
-                        },
-                    })
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.search') }}",
-                        type: "GET",
-                        data: {
-                            kapanewon: e.target.value,
-                            kabupaten: $("#kabupaten").val(),
-                            tahun: $("#tahun").val()
-                        },
-                        success: function(data) {
-                            $('#table').empty()
-                            kapanewon.empty()
-                            // console.log("e", e.target.value)
-                            // console.log('data', data)
-                            data.forEach(item => {
-                                $('#table').append(`
-                <tr>
-                  <td>${item.id}</td>
-                  <td>${item.kode_perizinan}</td>
-                  <td>${item.kabupaten }</td>
-                  <td>${item.kapanewon }</td>
-                  <td>${item.kelurahan }</td>
-                  <td>${item.desa }</td>
-                  <td>${item.persil}</td>
-                  <td>${item.luas}</td>
-                  <td>${item.uraian}</td>
-                  <td>${item.tanggal_mulai}</td>
-                  <td>${item.tanggal_akhir}</td>
-                  <td>${item.file_sk}</td>
-                  <td>
-                              <a href="edit-pemanfaatan/${item.id}"><i class="fas fa-edit"></i></a> |
-                              <a href="hapus-pemanfaatan/${item.id}"  onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" ><i class="fas fa-trash-alt bg-dancer"></i></a>
-                              @csrf
-                            </td>
-                </tr>`)
-                            })
-
-                        },
-                        error: function(data) {
-                            let alert = $('div[role="alert"]')
-                            alert.addClass('alert alert-danger alert-dismissible')
-                            alert.html(JSON.stringify(data.responseJSON.message))
-                            alert.show()
-                        }
-                    })
-                })
-
-                // fetch list kelurahan
-                kelurahan.on('select2:select', (e) => {
-                    // console.log('hereeeeeee', $("#kabupaten").val(), e.target.value)
-                    $.ajax({
-                        url: "{{ route('api.pemanfaatan.search') }}",
-                        type: "GET",
-                        data: {
-                            kelurahan: e.target.value,
-                            kabupaten: $("#kabupaten").val(),
-                            tahun: $("#tahun").val()
-                        },
-                        success: function(data) {
-                            $('#table').empty()
-                            kelurahan.empty()
-                            // console.log("e", e.target.value)
-                            // console.log('data', data)
-                            data.forEach(item => {
-                                $('#table').append(`
-                <tr>
-                  <td>${item.id}</td>
-                  <td>${item.kode_perizinan}</td>
-                  <td>${item.desa_kecamatan}</td>
-                  <td>${item.kabupaten}</td>
-                  <td>${item.kelurahan}</td>
-                  <td>${item.persil}</td>
-                  <td>${item.luas}</td>
-                  <td>${item.uraian}</td>
-                  <td>${item.tanggal_mulai}</td>
-                  <td>${item.tanggal_akhir}</td>
-                  <td>${item.file_sk}</td>
-                  <td>
-                              <a href="edit-pemanfaatan/${item.id}"><i class="fas fa-edit"></i></a> |
-                              <a href="hapus-pemanfaatan/${item.id}"  onclick="return confirm('Apakah Anda Yakin Menghapus Data?');" ><i class="fas fa-trash-alt bg-dancer"></i></a>
-                              @csrf
-                            </td>
-                </tr>`)
-                            })
-                        },
-                        error: function(data) {
-                            let alert = $('div[role="alert"]')
-                            alert.addClass('alert alert-danger alert-dismissible')
-                            alert.html(JSON.stringify(data.responseJSON.message))
-                            alert.show()
-                        }
-                    })
-                })
-
-                $.ajax({
-                    url: "{{ route('api.tahunA') }}",
-                    type: "GET",
-                    success: function(data) {
-                        console.log(data)
-                        data.map(it => {
-                            var newOption = new Option(it.tanggal_akhir, it.tanggal_akhir, false,
-                                false);
-                            $('#tahun').append(newOption).trigger('change');
-                        })
-                    }
-                })
-
-                $.ajax({
-                    url: "{{ route('api.pemanfaatan.kabupaten') }}",
-                    type: "GET",
-                    success: function(data) {
-                        // console.log('data', data)
-                        data.map(it => {
-                            var newOption = new Option(it.kabupaten, it.kabupaten, false, false);
-                            $('#kabupaten').append(newOption).trigger('change');
-                        })
-
-                    },
-                    error: function(data) {
-                        let alert = $('div[role="alert"]')
-                        alert.addClass('alert alert-danger alert-dismissible')
-                        alert.html(JSON.stringify(data.responseJSON.message))
-                        alert.show()
-                    }
-                })
-            })
-        </script>
-    </body>
+                        <tbody id="table">
+                            @foreach ($dtpemanfaatan as $item)
+                                <tr>
+                                    <td>{{ $item->kode_perizinan }}</td>
+                                    <td>{{ $item->kabupaten }}</td>
+                                    <td>{{ $item->kapanewon }}</td>
+                                    <td>{{ $item->kelurahan }}</td>
+                                    <td>{{ $item->desa }}</td>
+                                    <td>{{ $item->persil }}</td>
+                                    <td>{{ $item->luas }}</td>
+                                    <td>{{ $item->uraian }}</td>
+                                    <td>{{ $item->tanggal_mulai }}</td>
+                                    <td>{{ $item->tanggal_akhir }}</td>
+                                    <td>
+                                        @if ($item->file_SK != null)
+                                            <a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File 1</a>
+                                            <br>
+                                        @elseif ($item->file_SK_2 != null)
+                                            <a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
+                                                2</a>
+                                            <br>
+                                        @elseif ($item->file_SK_3 != null)
+                                            <a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
+                                                3</a>
+                                            <br>
+                                        @elseif ($item->file_SK_4 != null)
+                                            <a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
+                                                4</a>
+                                        @elseif ($item->file_SK_4 != null)
+                                            <a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
+                                                5</a>
+                                        @else
+                                            <a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File 1</a>
+                                            <br>
+                                            <a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
+                                                2</a>
+                                            <br>
+                                            <a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
+                                                3</a>
+                                            <br>
+                                            <a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
+                                                4</a>
+                                            <br>
+                                            <a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
+                                                5</a>
+                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ url('edit-pemanfaatan/' . $item->id) }}"><i
+                                                class="fas fa-edit"></i></a> | --}}
+    {{-- <a href="{{ url('hapus-pemanfaatan/' . $item->id) }}"
+                                                    data-id="{{ $item->id }}"><i
+                                                        class="fas fa-trash-alt bg-dancer"></i></a> --}}
+    {{-- <a href="{{ url('hapus-pemanfaatan/' . $item->id) }}"
+                                            data-id="{{ $item->id }}"
+                                            onclick="return confirm('Apakah Anda Yakin Menghapus Data?');"><i
+                                                class="fas fa-trash-alt bg-dancer"></i></a>
+                                    </td>
+                                </tr>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> --}}
+    {{-- </div> --}}
+    @include('layouts.select')
 
     </html>
 @endsection
