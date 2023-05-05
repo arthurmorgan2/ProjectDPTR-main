@@ -29,10 +29,10 @@
                                             <option value="">Pilih Kabupaten</option>
                                         </select>
                                         <select id='kapanewon'>
-                                            <option value=''>Pilih Kecamatan</option>
+                                            <option value="">Pilih Kecamatan</option>
                                         </select>
                                         <select id='kelurahan'>
-                                            <option value=''>Pilih Kalurahan</option>
+                                            <option value="">Pilih Kalurahan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -58,6 +58,7 @@
                                 <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>Kode Perizinan</th>
                                             <th>Kabupaten</th>
                                             <th>Kapanewon</th>
@@ -75,6 +76,7 @@
                                     <tbody>
                                         @foreach ($dtpemanfaatan as $item)
                                             <tr>
+                                                <td>{{ $item->id }}</td>
                                                 <td>{{ $item->kode_perizinan }}</td>
                                                 <td>{{ $item->kabupaten }}</td>
                                                 <td>{{ $item->kapanewon }}</td>

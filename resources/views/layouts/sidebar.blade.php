@@ -327,14 +327,14 @@
                         </p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('masteradmin') }}" class="nav-link">
-                        <i class="nav-icon fas fa-wrench"></i>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="nav-icon fas bi-box-arrow-right"></i>
                         <p>
-                            Admin
+                            Logout
                         </p>
                     </a>
-                </li> --}}
+                </li>
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>

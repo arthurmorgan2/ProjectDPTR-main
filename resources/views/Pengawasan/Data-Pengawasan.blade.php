@@ -28,10 +28,10 @@
                                             <option value="">Pilih Kabupaten</option>
                                         </select>
                                         <select id='kapanewon'>
-                                            <option value=''>Pilih Kecamatan</option>
+                                            <option value="">Pilih Kecamatan</option>
                                         </select>
                                         <select id='kelurahan'>
-                                            <option value=''>Pilih Kalurahan</option>
+                                            <option value="">Pilih Kalurahan</option>
                                         </select>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                             @if (session('flash_message_success'))
                                 <div class="alert alert-success">
                                     {{ session('flash_message_success') }}
-                                </div>
+                                </div>"
                             @endif
                             @if (session('flash_message_warning'))
                                 <div class="alert alert-warning">

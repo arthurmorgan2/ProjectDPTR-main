@@ -38,7 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
     Route::match(['get', 'post'], 'actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['guest']], function () {
         //Home
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::match(['get', 'post'], 'actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
@@ -110,7 +110,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/search/pemanfaatan/kelurahan', [DpemanfaatanController::class, 'kelurahan'])->name('api.pemanfaatan.kelurahan');
     Route::get('/search/pemanfaatan/tanggal_akhir', [DpemanfaatanController::class, 'tanggal_akhir'])->name('api.pemanfaatan.tanggal_akhir');
     Route::get('/pesan/peringatan', 'DpemanfaatanController@peringatan');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
     Route::get('/search/pengawasan', [PengawasanController::class, 'pengawasan'])->name('api.pengawasan.search');
