@@ -91,6 +91,10 @@ class PengawasanController extends Controller
             $data = DB::table('pengawasan')
                 ->where('kabupaten', $kabupaten)
                 ->where('kelurahan', $kelurahan)->get();
+        } elseif (isset($kapanewon) && isset($kabupaten)) {
+            $data = DB::table('pengawasan')
+                ->where('kabupaten', $kabupaten)
+                ->where('kapanewon', $kapanewon)->get();
         } else {
             $data = DB::table('pengawasan')
                 ->where('kabupaten', $kabupaten)->get();
@@ -204,7 +208,7 @@ class PengawasanController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     * 
+     *
      */
     public function view($id)
     {

@@ -72,6 +72,12 @@ class DpemanfaatanController extends Controller
                     ->where('kelurahan', $kelurahan)
                     ->where('tanggal_akhir', $tahun)
                     ->get();
+            } elseif (isset($kabupaten) && isset($kapanewon)) {
+                $data = DB::table('pemanfaatan')
+                    ->where('kabupaten', $kabupaten)
+                    ->where('kapanewon', $kapanewon)
+                    ->where('tanggal_akhir', $tahun)
+                    ->get();
             } elseif (isset($kabupaten)) {
                 $data = DB::table('pemanfaatan')
                     ->where('kabupaten', $kabupaten)
@@ -94,6 +100,10 @@ class DpemanfaatanController extends Controller
             $data = DB::table('pemanfaatan')
                 ->where('kabupaten', $kabupaten)
                 ->where('kelurahan', $kelurahan)->get();
+        } elseif (isset($kapanewon) && isset($kabupaten)) {
+            $data = DB::table('pemanfaatan')
+                ->where('kabupaten', $kabupaten)
+                ->where('kapanewon', $kapanewon)->get();
         } else {
             $data = DB::table('pemanfaatan')
                 ->where('kabupaten', $kabupaten)->get();
@@ -241,6 +251,7 @@ class DpemanfaatanController extends Controller
         $dpemanfaatan->uraian = $request->input('uraian');
         $dpemanfaatan->tanggal_mulai = $request->input('tanggal_mulai');
         $dpemanfaatan->tanggal_akhir = $request->input('tanggal_akhir');
+        dd($request->all());
         if ($request->hasfile('file_SK')) {
             $file_path = 'uploads/file_SK/' . $dpemanfaatan->file_SK;
             if (File::exists($file_path)) {
@@ -296,7 +307,7 @@ class DpemanfaatanController extends Controller
             $file->move('uploads/file_SK_5/', $filename);
             $dpemanfaatan->file_SK_5 = $filename;
         }
-
+        // dd($dpemanfaatan);
         $dpemanfaatan->update();
         return redirect()->route('tabel')->with('flash_message_warning', 'Data Pemanfaatan Berhasil Diubah!');
     }

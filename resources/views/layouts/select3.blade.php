@@ -90,9 +90,8 @@
                 },
                 success: function(data) {
                     $('#example1').empty()
-                    data.forEach(item => {
-                        $('#example1').append(`
-                        <tr>
+                    data.forEach((item, index) => {
+                        const head = index === 0 ? `<tr>
                                             <th>Kabupaten</th>
                                             <th>Kapanewon</th>
                                             <th>Kalurahan</th>
@@ -113,7 +112,9 @@
                                             <th>Tindak Lanjut</th>
                                             <th>Kesesuaian</th>
                                             <th>Aksi</th>
-                        </tr>
+                        </tr>` : undefined
+                        $('#example1').append(`
+                        ${head}
                <tr>
                  <td>${item.kabupaten }</td>
                  <td>${item.kapanewon }</td>
@@ -145,7 +146,7 @@
                 },
             })
 
-            // fetch list kapanewon
+            // fetch list kapanewonnn
             $.ajax({
                 url: "{{ route('api.pengawasan.kapanewon') }}",
                 type: "GET",
@@ -196,11 +197,11 @@
                 },
                 success: function(data) {
                     $('#example1').empty()
-                    kapanewon.empty()
+                    // kapanewon.empty()
                     // console.log("e", e.target.value)
                     // console.log('data', data)
-                    data.forEach(item => {
-                        $('#example1').append(`   <tr>
+                    data.forEach((item, index) => {
+                        const head = index === 0 ? `<tr>
                                             <th>Kabupaten</th>
                                             <th>Kapanewon</th>
                                             <th>Kalurahan</th>
@@ -221,7 +222,9 @@
                                             <th>Tindak Lanjut</th>
                                             <th>Kesesuaian</th>
                                             <th>Aksi</th>
-                        </tr>
+                        </tr>` : undefined
+                        $('#example1').append(`
+                        ${head}
                <tr>
                  <td>${item.kabupaten }</td>
                  <td>${item.kapanewon }</td>
@@ -273,7 +276,7 @@
                 },
                 success: function(data) {
                     $('#example1').empty()
-                    kelurahan.empty()
+                    // kelurahan.empty()
                     // console.log("e", e.target.value)
                     // console.log('data', data)
                     data.forEach(item => {

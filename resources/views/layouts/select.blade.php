@@ -22,9 +22,8 @@
                  },
                  success: function(data) {
                      $('#example2').empty()
-                     data.forEach(item => {
-                         $('#example2').append(`
-                         <tr>
+                     data.forEach((item, index) => {
+                         const head = index === 0 ? `  <tr>
                                             <th>No</th>
                                             <th>Kode Perizinan</th>
                                             <th>Kabupaten</th>
@@ -38,7 +37,9 @@
                                             <th>Tahun Akhir</th>
                                             <th>File SK Preview</th>
                                             <th>Aksi</th>
-                                        </tr>
+                                        </tr>` : undefined
+                         $('#example2').append(`
+                         ${head}
                 <tr>
                   <td>${item.id}</td>
                   <td>${item.kode_perizinan}</td>
@@ -79,9 +80,8 @@
                  },
                  success: function(data) {
                      $('#example2').empty()
-                     data.forEach(item => {
-                         $('#example2').append(`
-                         <tr>
+                     data.forEach((item, index) => {
+                         const head = index === 0 ? `  <tr>
                                             <th>No</th>
                                             <th>Kode Perizinan</th>
                                             <th>Kabupaten</th>
@@ -95,7 +95,9 @@
                                             <th>Tahun Akhir</th>
                                             <th>File SK Preview</th>
                                             <th>Aksi</th>
-                                        </tr>
+                                        </tr>` : undefined
+                         $('#example2').append(`
+                         ${head}
                 <tr>
                   <td>${item.id}</td>
                   <td>${item.kode_perizinan}</td>
@@ -174,11 +176,11 @@
                  },
                  success: function(data) {
                      $('#example2').empty()
-                     kapanewon.empty()
+                     //  kapanewon.empty()
                      // console.log("e", e.target.value)
                      // console.log('data', data)
-                     data.forEach(item => {
-                         $('#example2').append(`  <tr>
+                     data.forEach((item, index) => {
+                         const head = index === 0 ? `  <tr>
                                             <th>No</th>
                                             <th>Kode Perizinan</th>
                                             <th>Kabupaten</th>
@@ -192,7 +194,9 @@
                                             <th>Tahun Akhir</th>
                                             <th>File SK Preview</th>
                                             <th>Aksi</th>
-                                        </tr>
+                                        </tr>` : undefined
+                         $('#example2').append(`
+                         ${head}
                 <tr>
                   <td>${item.id}</td>
                   <td>${item.kode_perizinan}</td>
@@ -240,12 +244,11 @@
                  },
                  success: function(data) {
                      $('#example2').empty()
-                     kelurahan.empty()
+                     //  kelurahan.empty()
                      // console.log("e", e.target.value)
                      // console.log('data', data)
-                     data.forEach(item => {
-                         $('#example2').append(`
-                         <tr>
+                     data.forEach((item, index) => {
+                         const head = index === 0 ? `  <tr>
                                             <th>No</th>
                                             <th>Kode Perizinan</th>
                                             <th>Kabupaten</th>
@@ -259,7 +262,8 @@
                                             <th>Tahun Akhir</th>
                                             <th>File SK Preview</th>
                                             <th>Aksi</th>
-                                        </tr>
+                                        </tr>` : undefined
+                         $('#example2').append(` ${head}
                 <tr>
                   <td>${item.id}</td>
                   <td>${item.kode_perizinan}</td>
@@ -325,58 +329,3 @@
          })
      })
  </script>
- <!-- Modal -->
- {{-- @foreach ($dtpemanfaatan as $item)
-     <div class="modal fade" id="viewFiles-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered modal-lg">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-
-                     <div class="row">
-                         <div class="col-md-8 ms-auto"><a href="{{ url('uploads/file_SK/' . $item->file_SK) }}">File
-                                 1</a>
-                             <br>
-                             <img src="{{ URL::asset('uploads/file_SK/' . $item->file_SK) }}" width="200">
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-md-3"><a href="{{ url('uploads/file_SK_2/' . $item->file_SK_2) }}">File
-                                 2</a>
-                             <br>
-                             <img src="{{ URL::asset('uploads/file_SK_2/' . $item->file_SK_2) }}" width="200"
-                                 alt="File Kosong">
-                         </div>
-                         <div class="col-md-3"><a href="{{ url('uploads/file_SK_3/' . $item->file_SK_3) }}">File
-                                 3</a>
-                             <br>
-                             <img src="{{ URL::asset('uploads/file_SK_3/' . $item->file_SK_3) }}" width="200"
-                                 alt="File Kosong">
-                         </div>
-                         <div class="col-md-3"><a href="{{ url('uploads/file_SK_4/' . $item->file_SK_4) }}">File
-                                 4</a>
-                             <br>
-                             <img src="{{ URL::asset('uploads/file_SK_4/' . $item->file_SK_4) }}" width="200"
-                                 alt="File Kosong">
-                         </div>
-                         <div class="col-md-3"><a href="{{ url('uploads/file_SK_5/' . $item->file_SK_5) }}">File
-                                 5</a>
-                             <br>
-                             <img src="{{ URL::asset('uploads/file_SK_5/' . $item->file_SK_5) }}" width="200"
-                                 alt="File Kosong">
-                         </div>
-                     </div>
-
-
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                 </div>
-             </div>
-         </div>
-     </div>
- @endforeach --}}
