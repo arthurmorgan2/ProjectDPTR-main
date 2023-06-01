@@ -326,7 +326,7 @@
      })
  </script>
  <!-- Modal -->
- @foreach ($dtpemanfaatan as $item)
+ {{-- @foreach ($dtpemanfaatan as $item)
      <div class="modal fade" id="viewFiles-{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -379,4 +379,4 @@
              </div>
          </div>
      </div>
- @endforeach
+ @endforeach --}}

@@ -228,27 +228,6 @@ class DpemanfaatanController extends Controller
         return view('pemanfaatan.edit-pemanfaatan', compact('dpemanfaatan'));
     }
 
-    // public function update(UpdatedpemanfaatanRequest $request, dpemanfaatan $dpemanfaatan)
-    // {
-    //     //
-    //     $dpemanfaatan = dpemanfaatan::where('id', $request->id)
-    //         ->update([
-    //             'id' => $request->id,
-    //             'kode_perizinan' => $request->kode_perizinan,
-    //             'kabupaten' => $request->kabupaten,
-    //             'kapanewon' => $request->kapanewon,
-    //             'kelurahan' => $request->kelurahan,
-    //             'desa' => $request->desa,
-    //             'persil' => $request->persil,
-    //             'luas' => $request->luas,
-    //             'uraian' => $request->uraian,
-    //             'tanggal_mulai' => $request->tanggal_mulai,
-    //             'tanggal_akhir' => $request->tanggal_mulai,
-    //             // 'file_SK'=>$request->file_SK,
-    //         ]);
-
-    //     return redirect()->route('tabel');
-    // }
     public function update(Request $request, $id)
     {
         $dpemanfaatan = dpemanfaatan::find($id);
