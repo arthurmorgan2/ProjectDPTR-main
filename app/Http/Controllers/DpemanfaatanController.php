@@ -241,75 +241,78 @@ class DpemanfaatanController extends Controller
     public function update(Request $request, $id)
     {
         $dpemanfaatan = dpemanfaatan::find($id);
-        $dpemanfaatan->kode_perizinan = $request->input('kode_perizinan');
-        $dpemanfaatan->kabupaten = $request->input('kabupaten');
-        $dpemanfaatan->kapanewon = $request->input('kapanewon');
-        $dpemanfaatan->kelurahan = $request->input('kelurahan');
-        $dpemanfaatan->desa = $request->input('desa');
-        $dpemanfaatan->persil = $request->input('persil');
-        $dpemanfaatan->luas = $request->input('luas');
-        $dpemanfaatan->uraian = $request->input('uraian');
-        $dpemanfaatan->tanggal_mulai = $request->input('tanggal_mulai');
-        $dpemanfaatan->tanggal_akhir = $request->input('tanggal_akhir');
-        dd($request->all());
-        if ($request->hasfile('file_SK')) {
-            $file_path = 'uploads/file_SK/' . $dpemanfaatan->file_SK;
-            if (File::exists($file_path)) {
-                File::delete($file_path);
+
+        if ($dpemanfaatan) {
+            $dpemanfaatan->kode_perizinan = $request->input('kode_perizinan');
+            $dpemanfaatan->kabupaten = $request->input('kabupaten');
+            $dpemanfaatan->kapanewon = $request->input('kapanewon');
+            $dpemanfaatan->kelurahan = $request->input('kelurahan');
+            $dpemanfaatan->desa = $request->input('desa');
+            $dpemanfaatan->persil = $request->input('persil');
+            $dpemanfaatan->luas = $request->input('luas');
+            $dpemanfaatan->uraian = $request->input('uraian');
+            $dpemanfaatan->tanggal_mulai = $request->input('tanggal_mulai');
+            $dpemanfaatan->tanggal_akhir = $request->input('tanggal_akhir');
+            if ($request->hasfile('file_SK')) {
+                $file_path = 'uploads/file_SK/' . $dpemanfaatan->file_SK;
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $file = $request->file('file_SK');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/file_SK/', $filename);
+                $dpemanfaatan->file_SK = $filename;
             }
-            $file = $request->file('file_SK');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/file_SK/', $filename);
-            $dpemanfaatan->file_SK = $filename;
-        }
-        if ($request->hasfile('file_SK_2')) {
-            $file_path = 'uploads/file_SK_2/' . $dpemanfaatan->file_SK_2;
-            if (File::exists($file_path)) {
-                File::delete($file_path);
+            if ($request->hasfile('file_SK_2')) {
+                $file_path = 'uploads/file_SK_2/' . $dpemanfaatan->file_SK_2;
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $file = $request->file('file_SK_2');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '2.' . $extension;
+                $file->move('uploads/file_SK_2/', $filename);
+                $dpemanfaatan->file_SK_2 = $filename;
             }
-            $file = $request->file('file_SK_2');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '2.' . $extension;
-            $file->move('uploads/file_SK_2/', $filename);
-            $dpemanfaatan->file_SK_2 = $filename;
-        }
-        if ($request->hasfile('file_SK_3')) {
-            $file_path = 'uploads/file_SK_3/' . $dpemanfaatan->file_SK_3;
-            if (File::exists($file_path)) {
-                File::delete($file_path);
+            if ($request->hasfile('file_SK_3')) {
+                $file_path = 'uploads/file_SK_3/' . $dpemanfaatan->file_SK_3;
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $file = $request->file('file_SK_3');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '3.' . $extension;
+                $file->move('uploads/file_SK_3/', $filename);
+                $dpemanfaatan->file_SK_3 = $filename;
             }
-            $file = $request->file('file_SK_3');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '3.' . $extension;
-            $file->move('uploads/file_SK_3/', $filename);
-            $dpemanfaatan->file_SK_3 = $filename;
-        }
-        if ($request->hasfile('file_SK_4')) {
-            $file_path = 'uploads/file_SK_4/' . $dpemanfaatan->file_SK_4;
-            if (File::exists($file_path)) {
-                File::delete($file_path);
+            if ($request->hasfile('file_SK_4')) {
+                $file_path = 'uploads/file_SK_4/' . $dpemanfaatan->file_SK_4;
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $file = $request->file('file_SK_4');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '4.' . $extension;
+                $file->move('uploads/file_SK_4/', $filename);
+                $dpemanfaatan->file_SK_4 = $filename;
             }
-            $file = $request->file('file_SK_4');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '4.' . $extension;
-            $file->move('uploads/file_SK_4/', $filename);
-            $dpemanfaatan->file_SK_4 = $filename;
-        }
-        if ($request->hasfile('file_SK_5')) {
-            $file_path = 'uploads/file_SK_5/' . $dpemanfaatan->file_SK_5;
-            if (File::exists($file_path)) {
-                File::delete($file_path);
+            if ($request->hasfile('file_SK_5')) {
+                $file_path = 'uploads/file_SK_5/' . $dpemanfaatan->file_SK_5;
+                if (File::exists($file_path)) {
+                    File::delete($file_path);
+                }
+                $file = $request->file('file_SK_5');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '5.' . $extension;
+                $file->move('uploads/file_SK_5/', $filename);
+                $dpemanfaatan->file_SK_5 = $filename;
             }
-            $file = $request->file('file_SK_5');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '5.' . $extension;
-            $file->move('uploads/file_SK_5/', $filename);
-            $dpemanfaatan->file_SK_5 = $filename;
+            $dpemanfaatan->update();
+            return redirect()->route('tabel')->with('flash_message_warning', 'Data Pemanfaatan Berhasil Diubah!');
+        } else {
+            return redirect()->back()->with('flash_message_danger', 'Data Pemanfaatan Gagal Diubah!');
         }
-        // dd($dpemanfaatan);
-        $dpemanfaatan->update();
-        return redirect()->route('tabel')->with('flash_message_warning', 'Data Pemanfaatan Berhasil Diubah!');
     }
 
 

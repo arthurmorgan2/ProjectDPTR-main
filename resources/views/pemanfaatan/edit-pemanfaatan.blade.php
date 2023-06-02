@@ -41,24 +41,25 @@
                                         <div class="form-group">
                                             <label>Kabupaten:</label>
                                             <input type="text" id="kabupaten" name="kabupaten" class="form-control"
-                                                value="{{ $item->kabupaten }}" />
-                                            <select id="kabupaten-input-form" class="form-select form-select-lg mb-3">
+                                                value="{{ $item->kabupaten }}" disabled />
+                                            <select id="kabupaten-input-form" class="form-select form-select-lg mb-3"
+                                                value="{{ $item->kabupaten }}">
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Kapanewon:</label>
                                             <input type="text" id="kapanewon" name="kapanewon" class="form-control"
-                                                value="{{ $item->kapanewon }}" />
-                                            <select id="kapanewon-input-form" class="form-select form-select-lg mb-3">
-
+                                                value="{{ $item->kapanewon }}" disabled />
+                                            <select id="kapanewon-input-form" class="form-select form-select-lg mb-3"
+                                                value="{{ $item->kapanewon }}">
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Kalurahan:</label>
                                             <input type="text" id="kelurahan" name="kelurahan" class="form-control"
-                                                value="{{ $item->kelurahan }}" />
-                                            <select id="kelurahan-input-form" class="form-select form-select-lg mb-3">
-
+                                                value="{{ $item->kelurahan }}" disabled />
+                                            <select id="kelurahan-input-form" class="form-select form-select-lg mb-3"
+                                                value="{{ $item->kelurahan }}">
                                             </select>
                                         </div>
                                         <div class="form-group mb-3">
