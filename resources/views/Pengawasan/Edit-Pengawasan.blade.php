@@ -45,7 +45,6 @@
                                                 value="{{ $item->kapanewon }}" disabled />
                                             <select id="kapanewon-input-form" class="form-select form-select-lg mb-3"
                                                 value="{{ $item->kapanewon }}">
-
                                             </select>
                                         </div>
                                         <div class="form-group">
